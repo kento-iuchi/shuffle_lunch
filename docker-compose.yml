@@ -1,0 +1,29 @@
+version: '2'
+services:
+  shuffle:
+   restart: always
+   build: ./shuffle
+   expose:
+     - "8000"
+   links:
+     - postgres:postgres
+   command: gunicorn shuffle_lunch.wsgi -b 0.0.0.0:8000
+   volumes:
+     - ./shuffle:/usr/src/app
+     - ./shuffle/static/:/usr/src/app/static
+  nginx:
+    restart: always
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./nginx/:/etc/nginx/"
+      - /www/static
+    volumes_from:
+      - shuffle
+    links:
+      - shuffle:shuffle
+  postgres:
+   image: postgres
+   ports:
+     - "5432:5432"
