@@ -4,7 +4,11 @@
     <head>
         <title>シャッフルランチ</title>
     </head>
-
+    {% for member in members %}
+    <div>
+        <p>{{member.name}}:{{member.can_go}}</p>
+    </div>
+    {% endfor %}
     <p>Hi there!</p>
     <p>It works!</p>
 </html>
