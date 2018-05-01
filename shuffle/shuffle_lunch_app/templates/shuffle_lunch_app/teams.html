@@ -1,14 +1,20 @@
 
-
 <html>
     <head>
         <title>シャッフルランチ</title>
     </head>
-    {% for member in members %}
-    <div>
-        <p>{{member.name}}:{{member.can_go}}</p>
-    </div>
-    {% endfor %}
+    <table>
+
+        {% for member in members %}
+
+        {% if forloop.counter0|divisibleby:"5" %}
+        </tr>
+        {% endif %}
+
+            <td>{{member.name}}:{{member.can_go}}</td>
+        {% endfor %}
+        </tr>
+    </table>
     <p>Hi there!</p>
     <p>It works!</p>
 </html>
