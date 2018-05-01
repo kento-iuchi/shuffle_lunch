@@ -1,20 +1,23 @@
-
+{% load staticfiles %}
 <html>
     <head>
         <title>シャッフルランチ</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <link rel="stylesheet" href="{% static 'css/common.css' %}">
     </head>
-    <table>
-
-        {% for member in members %}
-
-        {% if forloop.counter0|divisibleby:"5" %}
-        </tr>
-        {% endif %}
-
-            <td>{{member.name}}:{{member.can_go}}</td>
-        {% endfor %}
-        </tr>
-    </table>
+    <div class="center">
+        <table>
+            {% for member in members %}
+            {% if forloop.counter0|divisibleby:"5" %}
+            </tr>
+            {% endif %}
+                <td>{{member.name}}:{{member.can_go}}</td>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
     <p>Hi there!</p>
     <p>It works!</p>
 </html>
