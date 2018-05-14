@@ -10,16 +10,28 @@
                 // action="organize/"
                 <form id="organize_team" onSubmit={
                     function(){
-                        var current_url = location.href;
-                        console.log(current_url);
+                        // var current_url = location.href;
+                        var current_url = 'http://192.168.33.12/';
+                        console.log(current_url + 'organize/');
+                        // fetch(current_url + 'organize/', {
+                        var testdata = 'test';
                         fetch(current_url + 'organize/', {
                             method: 'POST',
-                            body: 'test'
+                            cache: 'no-cache',
+                            body: JSON.stringify({test : testdata}),
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
                         })
                         .then(response => {
-                            console.log(response);
+                            if (!response.ok) {
+                                // 失敗時の処理
+                                alert(1);
+                            } else {
+                                console.log(response.json());
+                                alert('clicked');
+                            }
                         })
-                        alert('clicked');
                     }}
                 >
                 <button type="submit">
