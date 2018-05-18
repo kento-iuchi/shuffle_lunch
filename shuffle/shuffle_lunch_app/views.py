@@ -13,7 +13,8 @@ def organize_teams(request):
     import json
     from django.http import HttpResponse,Http404
     # info(request);
-    print(request.POST.urlencode())
+    print(len(request.POST))
+    # print(request.method) POST
     # .get("test")
 
     members = Member.objects.all()
