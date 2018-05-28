@@ -14,6 +14,7 @@ def organize_teams(request):
     from django.http import HttpResponse,Http404
     # info(request);
     print(len(request.POST))
+    print(request.POST['id'])
     # print(request.method) POST
     # .get("test")
 
