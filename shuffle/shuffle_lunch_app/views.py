@@ -1,31 +1,21 @@
 from django.shortcuts import render
 from .models import Member
 
-# def info(msg):
-#     logger = logging.getLogger('command')
-#     logger.info(msg)
-
 def teams(request):
-    members = Member.objects.all()
+    members = Member.objects.order_by('id').all()
     return render(request, 'shuffle_lunch_app/teams.html', {'members' : members})
 
-def organize_teams(request):
+def change(request):
     import json
     from django.http import HttpResponse,Http404
-    # info(request);
-    print(len(request.POST))
-    print(request.POST['id'])
-    # print(request.method) POST
-    # .get("test")
 
-    members = Member.objects.all()
-    print(members[0].can_go)
-    if members[0].can_go == True :
-        members[0].can_go == False
-    else :
-        members[0].can_go == True
+    print(request);
+    member_id = int(request.POST['id'])
+    member = Member.objects.get(id=member_id)
+    member.toggle_can_go()
+    print(member.can_go)
 
-    response = json.dumps({'your_surprise_txt':'aaa',})
+    response = json.dumps({'can_go':member.can_go,})
     return HttpResponse(response, content_type = "text/javascript")
 
 # Create your views here.

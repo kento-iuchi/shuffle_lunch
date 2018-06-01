@@ -6,7 +6,7 @@
         {% if forloop.counter0|divisibleby:"5" %}
         </tr>
         {% endif %}
-            <td class="can_go_switch" data-id="{{member.id}}">{{member.name}}:{{member.can_go}},{{member.id}}</td>
+            <td id="switch_{{member.id}}" class="can_go_switch {% if member.can_go == True%}can_go{% endif %}" data-id="{{member.id}}">{{member.name}}</td>
         {% endfor %}
         </tr>
     </table>

@@ -9,3 +9,7 @@ class Member(models.Model):
 
     def __str__(self):
         return self.name
+
+    def toggle_can_go(self):
+        self.can_go ^= True
+        self.save()

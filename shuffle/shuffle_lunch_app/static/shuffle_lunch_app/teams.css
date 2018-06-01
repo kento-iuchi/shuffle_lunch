@@ -6,3 +6,8 @@
     text-align: center;
     width: 10%;
 }
+
+.can_go {
+    background-color: #eef3f9 !important;
+    font-weight: bold;
+}
