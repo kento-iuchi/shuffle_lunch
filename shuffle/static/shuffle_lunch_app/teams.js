@@ -78,11 +78,11 @@
     // import { Component } from 'react';
 
     class ShuffleButton extends React.Component{
-        
         render(){
             return (
                 // action="organize/"
                 <form id="organize_team" onSubmit={
+                    return e.preventDefault();
                     function(){
                         // var current_url = location.href;
                         var current_url = 'http://192.168.33.12/';
