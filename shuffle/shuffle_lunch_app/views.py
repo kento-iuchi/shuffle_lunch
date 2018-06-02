@@ -21,13 +21,26 @@ def change(request):
 def organize_teams(request):
     import json
     from django.http import HttpResponse,HttpRequest,Http404
+    import random
 
     members = Member.objects.filter(can_go=True)
-    print(members)
-    print(request.POST);
-    print(request.method)
+    can_go_members = []
+    for member in members:
+        can_go_members.append(member.name)
 
-    response = json.dumps({'can_go':'test',})
+    print(request.POST)
+    teams_count = int(request.POST['teams_count'])
+    teams = []
+    for t_i in range(teams_count):
+        team = []
+        teams.append(team)
+    random.shuffle(can_go_members)
+    members_count = len(members)
+    for m_i, member in enumerate(can_go_members):
+        team_number = m_i % teams_count
+        teams[team_number].append(member)
+
+    response = json.dumps({'teams':teams,})
     return HttpResponse(response, content_type = "text/javascript")
 
 # Create your views here.

@@ -78,57 +78,42 @@
     // import { Component } from 'react';
 
     class ShuffleButton extends React.Component{
-        
+        constructor(props) {
+            super(props)
+            this.handleSubmit=this.handleSubmit.bind(this);
+        }
+
+        handleSubmit(e){
+            e.preventDefault();
+            var current_url = 'http://192.168.33.12/';
+            console.log(current_url + 'organize/');
+            var teams_count = $('#teams-count').val();
+            console.log(teams_count);
+            $.ajax({
+                url : current_url + 'organize/',
+                type : 'POST',
+                dataType: 'json',
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    // "Content-Type": "application/json",
+                },
+                data:{
+                    teams_count:teams_count,
+                },
+            }).done(function(data){
+                console.log(data);
+                // if(data['can_go']){
+                //     $('#' + id).addClass('can_go');
+                // } else {
+                //     $('#' + id).removeClass('can_go');
+                // }
+            })
+        }
+
         render(){
             return (
                 // action="organize/"
-                <form id="organize_team" onSubmit={
-                    function(){
-                        // var current_url = location.href;
-                        var current_url = 'http://192.168.33.12/';
-                        console.log(current_url + 'organize/');
-                        var teams_count = $('#teams-count').val();
-                        console.log(teams_count);
-                        $.ajax({
-                            url : current_url + 'organize/',
-                            type : 'POST',
-                            dataType: 'json',
-                            headers: {
-                                "X-CSRFToken": getCookie("csrftoken"),
-                                // "Content-Type": "application/json",
-                            },
-                            data:{
-                                teams_count:teams_count,
-                            },
-                        }).done(function(data){
-                            console.log(data);
-                            // if(data['can_go']){
-                            //     $('#' + id).addClass('can_go');
-                            // } else {
-                            //     $('#' + id).removeClass('can_go');
-                            // }
-                        })
-                        // fetch(current_url + 'organize/', {
-                        // var testdata = 'test';
-                        // fetch(current_url + 'organize/', {
-                        //     method: 'POST',
-                        //     cache: 'no-cache',
-                        //     body: JSON.stringify({test : testdata}),
-                        //     headers: {
-                        //         "Content-Type": "application/json"
-                        //     },
-                        // })
-                        // .then(response => {
-                        //     if (!response.ok) {
-                        //         // 失敗時の処理
-                        //         alert(1);
-                        //     } else {
-                        //         console.log(response.json());
-                        //         alert('clicked');
-                        //     }
-                        // })
-                    }}
-                >
+                <form id="organize_team" onSubmit={this.handleSubmit}>
                 <div>
                 <input type="number" id="teams-count" defaultValue='5' min='1'>
                 </input>
