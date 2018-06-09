@@ -89,12 +89,11 @@
 
         handleSubmit(e){
             e.preventDefault();
-            const teams = this.state.teams;
 
             var current_url = 'http://192.168.33.12/';
             var teams_count = $('#teams-count').val();
             this.state.teams = [];
-            console.log(this.state.teams);
+            const teams = this.state.teams.slice();
             $.ajax({
                 url : current_url + 'organize/',
                 type : 'POST',
