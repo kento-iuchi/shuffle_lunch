@@ -81,14 +81,20 @@
         constructor(props) {
             super(props)
             this.handleSubmit=this.handleSubmit.bind(this);
+            const teams = [];
+            this.state = {
+                teams: teams,
+            }
         }
 
         handleSubmit(e){
             e.preventDefault();
+            const teams = this.state.teams;
+
             var current_url = 'http://192.168.33.12/';
-            console.log(current_url + 'organize/');
             var teams_count = $('#teams-count').val();
-            console.log(teams_count);
+            this.state.teams = [];
+            console.log(this.state.teams);
             $.ajax({
                 url : current_url + 'organize/',
                 type : 'POST',
@@ -100,19 +106,30 @@
                 data:{
                     teams_count:teams_count,
                 },
-            }).done(function(data){
-                console.log(data);
-                // if(data['can_go']){
-                //     $('#' + id).addClass('can_go');
-                // } else {
-                //     $('#' + id).removeClass('can_go');
-                // }
-            })
+            }).done(function(response){
+
+                var team_id = 0
+                response.teams.some(function(team){
+                    teams.push({
+                        id : team_id,
+                        members :team,
+                    })
+                    team_id+=1;
+                }.bind(this));
+
+                // teams.push({
+                //     id : countTeam,
+                //     members :response,
+                // })
+                this.setState({ teams });
+                return response
+            }.bind(this));
         }
 
         render(){
             return (
                 // action="organize/"
+                <div>
                 <form id="organize_team" onSubmit={this.handleSubmit}>
                 <div>
                 <input type="number" id="teams-count" defaultValue='5' min='1'>
@@ -122,6 +139,47 @@
                     shuffle!
                 </button>
                 </form>
+                <TeamList
+                    teams={this.state.teams}
+                />
+                </div>
+            )
+        }
+    }
+
+    class TeamList extends React.Component {
+
+        render() {
+            const teams = this.props.teams.map( team =>
+                <Team
+                    key = {team.id}
+                    {...team}
+                />
+            )
+            // this.state =
+
+            return(
+                <div>
+                    {teams}
+                </div>
+            )
+        }
+    }
+
+    class Team extends React.Component {
+        render(){
+            var member_list = [];
+
+            for(var m_i in this.props.members){
+                member_list.push(<li key={m_i}>{this.props.members[m_i]}</li>)
+            }
+            return(
+                <div>
+                    <span>チーム{this.props.id}</span>
+                    <ul>
+                        {member_list}
+                    </ul>
+                </div>
             )
         }
     }

@@ -24,18 +24,21 @@ def organize_teams(request):
     import random
 
     members = Member.objects.filter(can_go=True)
+    members_count = len(members)
+    print(request.POST)
+    teams_count = int(request.POST['teams_count'])
+    if members_count < teams_count:
+        response = json.dumps({'error':'Lack of participants'})
+        return HttpResponse(response, content_type = "text/javascript")
     can_go_members = []
     for member in members:
         can_go_members.append(member.name)
 
-    print(request.POST)
-    teams_count = int(request.POST['teams_count'])
     teams = []
     for t_i in range(teams_count):
         team = []
         teams.append(team)
     random.shuffle(can_go_members)
-    members_count = len(members)
     for m_i, member in enumerate(can_go_members):
         team_number = m_i % teams_count
         teams[team_number].append(member)
