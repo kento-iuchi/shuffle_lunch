@@ -9,11 +9,9 @@ def change(request):
     import json
     from django.http import HttpResponse,Http404
 
-    print(request);
     member_id = int(request.POST['id'])
     member = Member.objects.get(id=member_id)
     member.toggle_can_go()
-    print(member.can_go)
 
     response = json.dumps({'can_go':member.can_go,})
     return HttpResponse(response, content_type = "text/javascript")
@@ -45,5 +43,3 @@ def organize_teams(request):
 
     response = json.dumps({'teams':teams,})
     return HttpResponse(response, content_type = "text/javascript")
-
-# Create your views here.
