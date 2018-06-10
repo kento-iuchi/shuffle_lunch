@@ -14,7 +14,6 @@ $(function(){
             headers: {"X-CSRFToken": getCookie("csrftoken")},
             data:{'id':data_id},
         }).done(function(data){
-            console.log(data);
             if(data['can_go']){
                 $('#' + id).addClass('can_go');
             } else {
@@ -22,5 +21,4 @@ $(function(){
             }
         })
     })
-
 });

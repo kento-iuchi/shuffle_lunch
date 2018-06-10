@@ -23,7 +23,6 @@ def organize_teams(request):
 
     members = Member.objects.filter(can_go=True)
     members_count = len(members)
-    print(request.POST)
     teams_count = int(request.POST['teams_count'])
     if members_count < teams_count:
         response = json.dumps({'error':'Lack of participants'})

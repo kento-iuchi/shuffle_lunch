@@ -28,18 +28,16 @@
                     teams_count:teams_count,
                 },
             }).done(function(response){
-
                 var team_id = 0
-                response.teams.some(function(team){
+                response.teams.some(function(members){
                     teams.push({
                         id : team_id,
-                        members :team,
+                        members :members,
                     })
                     team_id+=1;
                 }.bind(this));
 
                 this.setState({ teams });
-                return response
             }.bind(this));
         }
 
