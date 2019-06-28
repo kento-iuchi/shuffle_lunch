@@ -8,6 +8,7 @@ def teams(request):
 def change(request):
     import json
     from django.http import HttpResponse,Http404
+    print('aaa')
 
     member_id = int(request.POST['id'])
     member = Member.objects.get(id=member_id)
